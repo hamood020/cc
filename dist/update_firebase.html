@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دليل أرقام الهواتف - تحديث البيانات</title>
+    <link rel="stylesheet" href="css/update.css">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <!-- SheetJS for Excel import/export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>تحديث بيانات أرقام الهواتف</h1>
+        <p class="subtitle">يمكنك تحديث البيانات وإضافة سجلات جديدة أو حذف السجلات الموجودة</p>
+    </header>
+    
+    <main>
+        <div class="action-buttons">
+            <button id="addRecordBtn" class="btn primary-btn">إضافة سجل جديد</button>
+            <button id="importExcelBtn" class="btn secondary-btn">استيراد من Excel</button>
+            <button id="exportExcelBtn" class="btn secondary-btn">تصدير إلى Excel</button>
+            <button id="saveChangesBtn" class="btn primary-btn">حفظ التغييرات</button>
+        </div>
+        
+        <div class="data-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>اسم الشركة</th>
+                        <th>اسم الموظف</th>
+                        <th>رقم الهاتف</th>
+                        <th>الإجراءات</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- Data will be loaded here -->
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="back-section">
+            <a href="index.html" class="btn back-btn">العودة إلى صفحة البحث</a>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="footer-links">
+            <a href="#" id="feedbackLink" class="feedback-link">ملاحظات وتطوير</a>
+        </div>
+        <p class="attribution">تم تصميم هذا التطبيق بواسطة حمود الدهماني.</p>
+    </footer>
+    
+    <!-- Add Record Modal -->
+    <div id="addRecordModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>إضافة سجل جديد</h2>
+            <form id="addRecordForm">
+                <div class="form-group">
+                    <label for="companyName">اسم الشركة:</label>
+                    <input type="text" id="companyName" required>
+                </div>
+                <div class="form-group">
+                    <label for="employeeName">اسم الموظف:</label>
+                    <input type="text" id="employeeName">
+                </div>
+                <div class="form-group">
+                    <label for="phoneNumber">رقم الهاتف:</label>
+                    <input type="text" id="phoneNumber" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn primary-btn">إضافة</button>
+                    <button type="button" class="btn cancel-btn">إلغاء</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Edit Record Modal -->
+    <div id="editRecordModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>تعديل السجل</h2>
+            <form id="editRecordForm">
+                <input type="hidden" id="editRecordId">
+                <div class="form-group">
+                    <label for="editCompanyName">اسم الشركة:</label>
+                    <input type="text" id="editCompanyName" required>
+                </div>
+                <div class="form-group">
+                    <label for="editEmployeeName">اسم الموظف:</label>
+                    <input type="text" id="editEmployeeName">
+                </div>
+                <div class="form-group">
+                    <label for="editPhoneNumber">رقم الهاتف:</label>
+                    <input type="text" id="editPhoneNumber" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn primary-btn">حفظ التغييرات</button>
+                    <button type="button" class="btn cancel-btn">إلغاء</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Import Excel Modal -->
+    <div id="importExcelModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>استيراد من Excel</h2>
+            <form id="importExcelForm">
+                <div class="form-group">
+                    <label for="excelFile">اختر ملف Excel:</label>
+                    <input type="file" id="excelFile" accept=".xlsx, .xls" required>
+                </div>
+                <div class="form-info">
+                    <p>يجب أن يحتوي ملف Excel على الأعمدة التالية:</p>
+                    <ul>
+                        <li>اسم الشركة (Company)</li>
+                        <li>اسم الموظف (Employee) - اختياري</li>
+                        <li>رقم الهاتف (Phone)</li>
+                    </ul>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn primary-btn">استيراد</button>
+                    <button type="button" class="btn cancel-btn">إلغاء</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Delete Confirmation Modal -->
+    <div id="confirmationModal" class="modal">
+        <div class="modal-content">
+            <h2>تأكيد الحذف</h2>
+            <p>هل أنت متأكد من رغبتك في حذف هذا السجل؟</p>
+            <div class="form-actions">
+                <button id="confirmDeleteBtn" class="btn danger-btn">نعم، حذف</button>
+                <button id="cancelDeleteBtn" class="btn cancel-btn">إلغاء</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Firebase version of the update script -->
+    <script src="js/update_firebase.js"></script>
+</body>
+</html>

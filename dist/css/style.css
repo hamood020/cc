@@ -1,0 +1,252 @@
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Tajawal', sans-serif;
+}
+
+:root {
+    --primary-color: #0066ff;
+    --secondary-color: #f0f8ff;
+    --border-color: #e0e0e0;
+    --text-color: #333;
+    --light-bg: #f9f9f9;
+    --success-color: #4caf50;
+    --danger-color: #f44336;
+    --warning-color: #ff9800;
+}
+
+body {
+    background-color: #f5f5f5;
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.search-icon {
+    font-size: 2rem;
+}
+
+.subtitle {
+    color: #666;
+    font-size: 1.1rem;
+}
+
+.search-container {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.search-box {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.search-box input {
+    flex: 1;
+    padding: 12px 15px;
+    border: 2px solid var(--border-color);
+    border-radius: 6px 0 0 6px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.search-box input:focus {
+    border-color: var(--primary-color);
+}
+
+.search-box button {
+    background-color: #ff9800;
+    color: white;
+    border: none;
+    padding: 0 20px;
+    border-radius: 0 6px 6px 0;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.search-box button:hover {
+    background-color: #f57c00;
+}
+
+.search-options {
+    display: flex;
+    gap: 20px;
+}
+
+.option {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.option input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--primary-color);
+}
+
+.option label {
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.results-container {
+    margin-top: 20px;
+}
+
+#resultsCount {
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+    color: #555;
+}
+
+.company-section {
+    margin-bottom: 30px;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.company-header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 20px;
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.company-header .icon {
+    font-size: 1.4rem;
+}
+
+.employee-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.employee-table th, .employee-table td {
+    padding: 12px 20px;
+    text-align: right;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.employee-table th {
+    background-color: #f5f5f5;
+    font-weight: 500;
+}
+
+.employee-table tr:last-child td {
+    border-bottom: none;
+}
+
+.employee-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.phone-number {
+    color: var(--primary-color);
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-block;
+    padding: 5px 15px;
+    border-radius: 20px;
+    transition: background-color 0.3s;
+}
+
+.phone-number:hover {
+    background-color: var(--secondary-color);
+}
+
+/* Alternating colors for phone numbers */
+.phone-number-1 { background-color: #ffebee; }
+.phone-number-2 { background-color: #e3f2fd; }
+.phone-number-3 { background-color: #e8f5e9; }
+.phone-number-4 { background-color: #fff3e0; }
+.phone-number-5 { background-color: #f3e5f5; }
+
+footer {
+    margin-top: 50px;
+    text-align: center;
+    padding: 20px 0;
+    border-top: 1px solid var(--border-color);
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 15px;
+}
+
+.footer-links a {
+    text-decoration: none;
+    color: var(--primary-color);
+    padding: 8px 15px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.update-link {
+    background-color: #e3f2fd;
+}
+
+.feedback-link {
+    background-color: #e8f5e9;
+}
+
+.footer-links a:hover {
+    background-color: var(--secondary-color);
+}
+
+.attribution {
+    color: #777;
+    font-size: 0.9rem;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .search-options {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .company-header {
+        font-size: 1rem;
+    }
+    
+    .employee-table th, .employee-table td {
+        padding: 10px;
+    }
+    
+    .footer-links {
+        flex-direction: column;
+        gap: 10px;
+    }
+}

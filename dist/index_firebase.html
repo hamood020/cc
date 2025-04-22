@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دليل أرقام الهواتف</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+</head>
+<body>
+    <header>
+        <h1>دليل أرقام الهواتف</h1>
+        <p class="subtitle">نظام البحث عن أرقام المؤسسات والموظفين</p>
+    </header>
+    
+    <main>
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="ادخل اسم الشركة أو الموظف أو رقم الهاتف...">
+                <button id="searchBtn">بحث</button>
+            </div>
+        </div>
+        
+        <div class="results-container" id="resultsContainer">
+            <p class="no-results">أدخل كلمة البحث للعثور على النتائج</p>
+        </div>
+        
+        <div class="update-link">
+            <a href="update_firebase.html" class="update-btn">تحديث البيانات</a>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="footer-links">
+            <a href="mailto:contact@example.com" class="feedback-link">ملاحظات وتطوير</a>
+        </div>
+        <p class="attribution">تم تصميم هذا التطبيق بواسطة حمود الدهماني.</p>
+    </footer>
+    
+    <!-- Firebase version of the script -->
+    <script src="js/script_firebase.js"></script>
+</body>
+</html>
